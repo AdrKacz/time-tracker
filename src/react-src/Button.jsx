@@ -8,4 +8,4 @@ function Button() {
   )
 }
 
-export default App;
+export default Button;
