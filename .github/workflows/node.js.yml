@@ -10,15 +10,12 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
-
+  test:
     runs-on: ubuntu-latest
-
     strategy:
       matrix:
         node-version: [10.x, 12.x, 14.x, 15.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-
     steps:
     - uses: actions/checkout@v2
     - name: Use Node.js ${{ matrix.node-version }}
@@ -26,13 +23,31 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: npm ci
-    - name: Test software and coverage
+    - name: Test software and coverage ${{ matrix.node-version }}
       run: npm test
-    - name: Build executables
+  build:
+    needs: [test]
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os:
+          - ubuntu-latest
+          - macos-latest
+          - windows-latest
+        node-version: [15.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js ${{ matrix.os }} ${{ matrix.node-version }}
+      uses: actions/setup-node@v2
+      with:
+        node-version: ${{ matrix.node-version }}
+    - run: npm ci
+    - name: Build executables ${{ matrix.os }} ${{ matrix.node-version }}
       run: npm run make
-    - name: Archive artifacts
+    - name: Archive artifacts ${{ matrix.os }} ${{ matrix.node-version }}
       uses: actions/upload-artifact@v2
       with:
-        name: out-${{ matrix.node-version }}
+        name: out-${{ matrix.os }}-${{ matrix.node-version }}
         path: |
           out
