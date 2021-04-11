@@ -35,4 +35,4 @@ jobs:
       with:
         name: out-${{ matrix.node-version }}
         path: |
-          .out
+          out
