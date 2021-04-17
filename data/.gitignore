@@ -1,4 +1,0 @@
-# Ignore every think but the folder (used to store data at run-time)
-*
-*/
-!.gitignore

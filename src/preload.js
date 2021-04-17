@@ -46,21 +46,25 @@ const { join } = require('path');
 const { open } = require('fs/promises');
 // const { dialog } = require('electron');
 
-const FILE_PATH = null;
+let FILE_PATH = null;
 
 contextBridge.exposeInMainWorld('api', {
   appendTime: (buttonSelected, deltaMilliseconds) => {
     if (FILE_PATH === null) {
-      console.log(ipcRenderer.sendSync('sync-get-file-path'));
-      return;
+      FILE_PATH = ipcRenderer.sendSync('sync-get-file-path');
     };
-
+    let localFileHandle = null;
     open(FILE_PATH, 'a')
     .then((fileHandle) => {
-      fileHandle.close();
+      localFileHandle = fileHandle;
+      return localFileHandle.writeFile(`${buttonSelected.name},${deltaMilliseconds}\n`);
     })
     .catch((err) => {
       console.error(`ERROR while writing data to ${FILE_PATH} :\n${err}`);
+    })
+    .finally((_) => {
+      localFileHandle?.close();
+      localFileHandle = null;
     });
     return;
   },
