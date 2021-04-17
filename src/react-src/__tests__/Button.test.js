@@ -2,7 +2,7 @@ import React from "react";
 import { render, unmountComponentAtNode } from "react-dom";
 import { act } from "react-dom/test-utils";
 
-import Button from "../Button";
+import Button from "../Button.jsx";
 
 let container = null;
 

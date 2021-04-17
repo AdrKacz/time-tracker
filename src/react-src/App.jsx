@@ -4,6 +4,7 @@ import { useState } from 'react';
 // import { open } from 'fs/promises';
 
 import Button from './Button.jsx';
+import Timer from './Timer.jsx';
 
 const BUTTONS = [
   {
@@ -60,6 +61,9 @@ function App() {
           Chromium <span id="chrome-version"></span>,
           and Electron <span id="electron-version"></span>.
       </p>
+      <Timer
+        startDate={startDate}
+      />
       {BUTTONS.map((btn, i) => (
         <Button
           {...btn}
