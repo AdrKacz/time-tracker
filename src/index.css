@@ -71,6 +71,7 @@ body {
 /* GLOBAL STYLES */
 .button {
   padding: 1rem;
+  margin: 2rem;
   border: 0.2rem solid black;
   cursor: pointer;
   background-color: lightgrey

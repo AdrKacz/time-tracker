@@ -1,6 +1,8 @@
 import React from 'react';
 import { useState } from 'react';
 
+// import { open } from 'fs/promises';
+
 import Button from './Button.jsx';
 
 const BUTTONS = [
@@ -46,8 +48,7 @@ function App() {
     console.log(BUTTONS[iButtonSelected].name + ': ' + startDate.toLocaleTimeString() + ' to ' + endDate.toLocaleTimeString());
     console.log(BUTTONS[iButtonSelected].name + ': ' + (deltaMilliseconds / 1000) + 'sec');
 
-    // window.electron.appendTime(BUTTONS[iButtonSelected], deltaMilliseconds);
-
+    window.api.appendTime(BUTTONS[iButtonSelected], deltaMilliseconds);
     setStartDate(null);
   };
 

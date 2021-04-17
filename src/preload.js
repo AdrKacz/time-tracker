@@ -40,3 +40,28 @@
 //     ),
 //   }
 // );
+
+const { contextBridge, ipcRenderer } = require('electron');
+const { join } = require('path');
+const { open } = require('fs/promises');
+// const { dialog } = require('electron');
+
+const FILE_PATH = null;
+
+contextBridge.exposeInMainWorld('api', {
+  appendTime: (buttonSelected, deltaMilliseconds) => {
+    if (FILE_PATH === null) {
+      console.log(ipcRenderer.sendSync('sync-get-file-path'));
+      return;
+    };
+
+    open(FILE_PATH, 'a')
+    .then((fileHandle) => {
+      fileHandle.close();
+    })
+    .catch((err) => {
+      console.error(`ERROR while writing data to ${FILE_PATH} :\n${err}`);
+    });
+    return;
+  },
+});
