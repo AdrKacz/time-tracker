@@ -48,7 +48,7 @@ function App() {
     const deltaMilliseconds = endDate.getTime() - startDate.getTime();
     console.log(BUTTONS[iButtonSelected].name + ': ' + (deltaMilliseconds / 1000) + 'sec');
 
-    window.api.appendTime(BUTTONS[iButtonSelected], deltaMilliseconds);
+    window.api.appendTime([BUTTONS[iButtonSelected].name, deltaMilliseconds, startDate, endDate]);
     setStartDate(null);
   };
 
