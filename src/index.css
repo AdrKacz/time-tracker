@@ -80,4 +80,8 @@ body {
 .button[aria-pressed="true"] {
   background-color: grey;
 }
+
+p {
+  min-height: 3rem;
+}
 /* END GLOBAL STYLES */

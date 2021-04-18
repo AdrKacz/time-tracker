@@ -31,8 +31,7 @@ import ReactDOM from 'react-dom';
 import App from './react-src/App.jsx'
 import './index.css';
 
-console.log('👋 This message is being logged by "renderer.js", included via webpack.');
-console.log('Loaded React.')
+console.log('👋 This message is being logged by "renderer.js", included via webpack.\nReact is loaded.');
 
 ReactDOM.render(
   <React.StrictMode>

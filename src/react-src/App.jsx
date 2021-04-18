@@ -46,7 +46,6 @@ function App() {
 
   function endTimer(endDate) {
     const deltaMilliseconds = endDate.getTime() - startDate.getTime();
-    console.log(BUTTONS[iButtonSelected].name + ': ' + startDate.toLocaleTimeString() + ' to ' + endDate.toLocaleTimeString());
     console.log(BUTTONS[iButtonSelected].name + ': ' + (deltaMilliseconds / 1000) + 'sec');
 
     window.api.appendTime(BUTTONS[iButtonSelected], deltaMilliseconds);
@@ -55,12 +54,7 @@ function App() {
 
   return (
     <>
-      <h1>Hello World!</h1>
-      <p>
-          We are using Node.js <span id="node-version"></span>,
-          Chromium <span id="chrome-version"></span>,
-          and Electron <span id="electron-version"></span>.
-      </p>
+      <h1>Time Tracker</h1>
       <Timer
         startDate={startDate}
       />

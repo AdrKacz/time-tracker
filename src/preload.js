@@ -63,7 +63,7 @@ contextBridge.exposeInMainWorld('api', {
       console.error(`ERROR while writing data to ${FILE_PATH} :\n${err}`);
     })
     .finally((_) => {
-      localFileHandle?.close();
+      localFileHandle?.close()
       localFileHandle = null;
     });
     return;

@@ -5,7 +5,11 @@ const HOUR = 3600000;
 const MINUTE = 60000;
 const SECOND = 1000;
 
-function getTime(time) {
+function getTimeFormatted(time) {
+  if (!time) {
+    return null;
+  };
+
   const hours = Math.floor(time / HOUR);
   time -= hours * HOUR;
 
@@ -15,41 +19,32 @@ function getTime(time) {
   const seconds = Math.floor(time / SECOND);
   time -= seconds * SECOND;
 
-  return `${hours}:${minutes}:${seconds}.${time}`;
+  return `${hours}:${minutes}:${seconds}`;
 }
 
 function Timer(props) {
-  const [elapsedTime, setElapsedTime] = useState(null);
+  const [tick, setTick] = useState(true);
+
+  function getElapsedTime() {
+    const startTime = props.startDate ? props.startDate.getTime() : null;
+    return props.startDate ? Date.now() - startTime : null;
+  };
 
   useEffect(() => {
-    let timerID = null;
+      const timerID = props.startDate && setTimeout((_) => {
+        setTick(!tick);
+      }, 1000);
 
-
-    if (props.startDate !== null) {
-      if (elapsedTime === null) {
-        setElapsedTime(0);
+      return () => {
+        clearTimeout(timerID);
       };
-
-      timerID = setTimeout((_) => {
-        setElapsedTime(Date.now() - props.startDate.getTime());
-      }, 100);
-    } else {
-      setElapsedTime(null);
-    };
-
-    return () => {
-      clearTimeout(timerID);
-    };
   });
 
+  const elapsedTime = getElapsedTime();
   return (
-    <>
-    {props.startDate !== null && elapsedTime !== null &&
-      <p>
-        {getTime(elapsedTime)}
-      </p>
-    }
-    </>
+    <p>
+      {getTimeFormatted(elapsedTime)}
+    </p>
   );
 };
 
