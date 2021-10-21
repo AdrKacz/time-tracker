@@ -61,7 +61,7 @@ function App() {
       {BUTTONS.map((btn, i) => (
         <Button
           {...btn}
-          handleClick={handleClick}
+          onClick={handleClick}
           isPressed={i === iButtonSelected}
           i={i}
           key={btn.key}

@@ -4,7 +4,7 @@ function Button(props) {
   return (
     <button
       className='button'
-      onClick={() => props.handleClick(props.i)}
+      onClick={() => props.onClick(props.i)}
       aria-pressed={props.isPressed}
     >
       {props.name}
